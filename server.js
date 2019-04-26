@@ -1,8 +1,8 @@
 const express = require("express");
 const helmet = require("helmet");
 
-const actionRouter = require("./data/helpers/actionModel");
-const projectRouter = require("./data/helpers/projectModel");
+const actionRouter = require("./data/actionRouter");
+const projectRouter = require("./data/projectRouter");
 
 const server = express();
 
