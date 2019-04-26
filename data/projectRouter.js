@@ -56,6 +56,20 @@ router.delete("/:id",(req,res)=>{
 })
 
 //====================PROJECT PUT METHOD=============================
-
+router.put("/:id", (req, res) => {
+    const userID = (req.params.id)
+    const userText = (req.body)
+    project.update(userID,userText)
+    .then(user => {
+        if (userID && userText) {
+        res.status(200).json(user);
+        } else {
+        res.status(404).json({ message: "The user with the specified ID does not exist." });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({ error: "The user information could not be modified." });
+    });
+});
 
 module.exports = router;
