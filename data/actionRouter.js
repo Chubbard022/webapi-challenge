@@ -21,13 +21,13 @@ router.post("/",(req,res)=>{
     action.insert(userText)
     .then(user => {
         if (userText) {
-        res.status(200).json(user);
+        res.status(201).json(user);
         } else {
-        res.status(404).json({ message: "The user with the specified ID does not exist." });
+        res.status(400).json({ user: "content and project ID required" });
         }
     })
     .catch(err => {
-        res.status(500).json({ error: "The user information could not be modified." });
+        res.status(400).json({ error: "content and project ID required" });
     });
 })
 //====================ACTION PUT METHOD=============================
@@ -37,7 +37,7 @@ router.put("/:id", (req, res) => {
     action.update(userID,userText)
     .then(user => {
         if (userID && userText) {
-        res.status(200).json(user);
+        res.status(202).json(user);
         } else {
         res.status(404).json({ message: "The user with the specified ID does not exist." });
         }

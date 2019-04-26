@@ -18,13 +18,20 @@ router.get("/:id",(req,res)=>{
     const messageId = req.params.id;
     project.getProjectActions(messageId)
     .then(message=>{
-        if(!messageId){
-            res.status(404).json({ message: "The post with the specified ID does not exist." })
+        if(message.length === 0){
+            res.status(404).json({ error: "correct project ID required" })
+            return;
         }else{
-        res.status(200).json(message)
-    }})
+            res.status(200).json(message)
+        }})
+        // if (messageId) {
+        //     res.status(201).json(message);
+        //     } else {
+        //     res.status(400).json({ message: "correct project ID required" });
+        //     }
+        // })
     .catch(err=>{
-        res.status(500).json({ error: "The post information could not be retrieved." })
+        res.status(500).json({ error: "project information could not be found" })
     })
 })
 //====================PROJECT POST METHOD============================
@@ -62,7 +69,7 @@ router.put("/:id", (req, res) => {
     project.update(userID,userText)
     .then(user => {
         if (userID && userText) {
-        res.status(200).json(user);
+        res.status(202).json(user);
         } else {
         res.status(404).json({ message: "The user with the specified ID does not exist." });
         }
