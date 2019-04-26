@@ -40,6 +40,20 @@ router.post("/",(req,res)=>{
 })
 
 //====================PROJECT DELETE METHOD==========================
+router.delete("/:id",(req,res)=>{
+    const messageID = req.params.id
+    project.remove(messageID)
+    .then(response=>{
+        if(!response){
+            res.status(404).json({ response: "The post with the specified ID does not exist." })
+        }else{
+            res.status(204).end()
+        }
+    })
+    .catch(err=>{
+        res.status(500).json({ error: "The post could not be removed" })
+    })
+})
 
 //====================PROJECT PUT METHOD=============================
 
