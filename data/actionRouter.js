@@ -17,18 +17,18 @@ router.get("/",(req,res)=>{
 })
 //====================ACTION POST METHOD============================
 router.post("/",(req,res)=>{
-    const userPost = req.body;
-    const userId = req.params.id;
-    action.insert(userId,userPost)
-    .then(users=>{
-        if(userId && userPost){
-            res.status(201).json(users)
-        }else{
-        res.status(400).json({error: "make sure to add userID and text to this post"})
-    }})
-    .catch(err=>{
-        res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
+    const userText = (req.body)
+    action.insert(userText)
+    .then(user => {
+        if (userText) {
+        res.status(200).json(user);
+        } else {
+        res.status(404).json({ message: "The user with the specified ID does not exist." });
+        }
     })
+    .catch(err => {
+        res.status(500).json({ error: "The user information could not be modified." });
+    });
 })
 //====================ACTION PUT METHOD=============================
 router.put("/:id", (req, res) => {
