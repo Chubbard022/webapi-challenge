@@ -26,4 +26,23 @@ router.post("/",(req,res)=>{
         res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
     })
 })
+//====================ACTION PUT METHOD=============================
+
+//====================ACTION DELETE METHOD==========================
+router.delete("/:id",(req,res)=>{
+    const messageID = req.params.id
+    action.remove(messageID)
+    .then(response=>{
+        if(!response){
+            res.status(404).json({ response: "The post with the specified ID does not exist." })
+        }else{
+            res.status(204).end()
+        }
+    })
+    .catch(err=>{
+        res.status(500).json({ error: "The post could not be removed" })
+    })
+})
+
+
 module.exports = router;
