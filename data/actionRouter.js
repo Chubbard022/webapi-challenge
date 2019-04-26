@@ -18,10 +18,14 @@ router.get("/",(req,res)=>{
 //====================ACTION POST METHOD============================
 router.post("/",(req,res)=>{
     const userPost = req.body;
-    action.insert(userPost)
+    const userId = req.params.id;
+    action.insert(userId,userPost)
     .then(users=>{
-        res.status(201).json(users)
-    })
+        if(userId && userPost){
+            res.status(201).json(users)
+        }else{
+        res.status(400).json({error: "make sure to add userID and text to this post"})
+    }})
     .catch(err=>{
         res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
     })
@@ -58,6 +62,4 @@ router.delete("/:id",(req,res)=>{
         res.status(500).json({ error: "The post could not be removed" })
     })
 })
-
-
 module.exports = router;
